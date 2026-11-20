@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>MiniStream</h1>
+        <p>Video upload coming soon.</p>
+        <input type="file" id="videoFile" accept="video/mp4">
+        <button type="button" id="uploadButton">Upload Video</button>
+
+        <script>
+    const button = document.getElementById("uploadButton");
+    const fileInput = document.getElementById("videoFile");
+
+    button.addEventListener("click", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Please select a video first.");
+            return;
+        }
+
+        try {
+            const response = await fetch("/generate-upload-url", {
+                method: "POST"
+            });
+
+            if (!response.ok) {
+                throw new Error("Could not generate upload URL");
+            }
+
+            const data = await response.json();
+
+            const uploadResponse = await fetch(data.upload_url, {
+                method: "PUT",
+                body: file
+            });
+
+            if (!uploadResponse.ok) {
+                throw new Error("S3 upload failed");
+            }
+
+            alert("Video uploaded successfully!");
+
+        } catch (error) {
+            alert(error.message);
+            console.error(error);
+        }
+    });
+</script>
+
+    </body>
+</html>

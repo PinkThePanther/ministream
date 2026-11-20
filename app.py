@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import boto3
 import uuid
 from botocore.config import Config
@@ -19,7 +19,7 @@ s3 = boto3.client("s3", region_name="us-east-1",config=my_config)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return render_template("index.html")
 
 
 @app.route("/generate-upload-url", methods=["POST"])
@@ -33,3 +33,6 @@ def generate_upload_url():
     }
 )
     return {"upload_url": upload_url}
+
+if __name__ == "__main__":
+    app.run(debug=True)

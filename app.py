@@ -31,8 +31,12 @@ def generate_upload_url():
         "Bucket": "ministream-videos-uniqueidentifier",
         "Key":object_key
     }
+    
 )
-    return {"upload_url": upload_url}
+    playback_url = f"https://dm8uste6nfcj4.cloudfront.net/{object_key}"
+    return {"upload_url": upload_url,"playback_url":playback_url}
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+

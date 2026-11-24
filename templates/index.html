@@ -2,14 +2,48 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>MiniStream</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
     <body>
-        <h1>MiniStream</h1>
-        <p>Video upload coming soon.</p>
+        <header class="navbar">
+    <div class="brand">
+    <button type="button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+        &#9776;
+    </button>
+
+    <h1>MiniStream</h1>
+    <nav id="dropdownMenu" hidden>
+    <a href="/">Home</a>
+    <a href="https://github.com/PinkThePanther/ministream"
+       target="_blank" rel="noopener noreferrer">
+        GitHub Repository
+    </a>
+</nav>
+</div>
+
+    <div class="upload-controls">
         <input type="file" id="videoFile" accept="video/mp4">
         <button type="button" id="uploadButton">Upload Video</button>
-        <video id="videoPlayer" controls></video>
+    </div>
+</header>
 
-        <script>
+<main class="video-container">
+    <video id="videoPlayer" controls></video>
+</main>
+    <script>
+
+    const menuButton = document.getElementById("menuButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+menuButton.addEventListener("click", function() {
+    dropdownMenu.hidden = !dropdownMenu.hidden;
+
+    menuButton.setAttribute("aria-expanded", !dropdownMenu.hidden);
+});
+
+
     const button = document.getElementById("uploadButton");
     const fileInput = document.getElementById("videoFile");
 

@@ -27,6 +27,7 @@ def generate_upload_url():
     object_key = f"videos/{uuid.uuid4()}.mp4"
     upload_url = s3.generate_presigned_url(
     ClientMethod="put_object",
+    ExpiresIn=300,
     Params={
         "Bucket": "ministream-videos-uniqueidentifier",
         "Key":object_key
@@ -37,6 +38,6 @@ def generate_upload_url():
     return {"upload_url": upload_url,"playback_url":playback_url}
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run
 
 
